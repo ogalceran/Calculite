@@ -1,36 +1,26 @@
-/* TODO: comunicar estado calculadora DOM con  el estado de Calculadora.
-Añadir estados en Calculadora
-Reorganizar el codigo por documentos
-Revisar nombres variables y funciones
-Intentar pasar por parametros mas globales(??)
-*/
-
-const CALCULATOR = new Calculator()
-const MAX_LENGTH_DISPLAY = 9
-const DISPLAY = new Display(MAX_LENGTH_DISPLAY)
-
 // BUTTONS
 let operatorsButtons = document.getElementsByClassName('operator')
 let numbersButtons = document.getElementsByClassName('number')
-let modifiersButtons = document.getElementsByClassName('modifier')
 let decimalButton = document.getElementById('decimal')
 let equalButton = document.getElementById('equal')
 let plusminusButton = document.getElementById('plusminus')
 
 // ACTIVATED - NON ACTIVATED STATUS
-let activatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
+/*let activatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
 let activatedNumericButtons = true
 let activatedPlusMinusButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
 let activatedDecimalButton = true
 let activatedEqualButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
-let calculatorStatus = CALCULATOR.getCalculatorStatus()
+let calculatorStatus = CALCULATOR.getCalculatorStatus() */
 
-intializeCalculator()
+addEventListeners()
 
-function intializeCalculator () {
-  addEventListeners()
-  // resetCalculatorStatus()  It should be activated but it's not functional
-}
+const CALCULATOR = new Calculator()
+const MAX_LENGTH_DISPLAY = 9
+const DISPLAY = new Display(MAX_LENGTH_DISPLAY, operatorsButtons, numbersButtons, plusminusButton, decimalButton, equalButton)
+
+resetCalculatorStatus()
+
 
 function addEventListeners () {
   addNumericButtonEventListeners()
@@ -87,12 +77,12 @@ function addPlusMinusEventListeners () {
 
 function updateDOM () {
   //toggleStateButtonsDOM(activatedOperatorsButtons, operatorsButtons)
-  toggleStateButtonsDOM(calculatorStatus.get('activatedOperators'), operatorsButtons)
+ /* toggleStateButtonsDOM(calculatorStatus.get('activatedOperators'), operatorsButtons)
   toggleStateButtonsDOM(activatedNumericButtons, numbersButtons)
   toggleStateButtonsDOM(calculatorStatus.get('activatedDecimal'), [decimalButton])
   toggleStateButtonsDOM(activatedEqualButton, [equalButton])
-  toggleStateButtonsDOM(activatedPlusMinusButton, [plusminusButton])
-  modifyDisplayDOM()
+  toggleStateButtonsDOM(activatedPlusMinusButton, [plusminusButton])*/
+  DISPLAY.setContent(CALCULATOR.getCurrentNumber())
 }
 
 function toggleStateButtonsDOM (state, buttons) {
@@ -107,16 +97,8 @@ function toggleStateButtonsDOM (state, buttons) {
   }
 }
 
-function modifyDisplayDOM () {
-  DISPLAY.setContent(CALCULATOR.getCurrentNumber())
-}
 
 function resetCalculatorStatus () {
-  /*ctivatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
-  activatedNumericButtons = true
-  activatedPlusMinusButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
-  activatedDecimalButton = true
-  activatedEqualButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.*/
   CALCULATOR.resetCalculator()
   updateDOM()
 }
