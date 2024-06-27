@@ -113,7 +113,7 @@ class Calculator{
     addDecimal(unit){
         console.log(this.#num1,    unit)
         this.#currentNumberCountDecimal += 1
-        this.#num1 = this.#num1 + parseFloat(unit) * this.#currentNumberCountDecimal / 10
+        this.#num1 = this.#num1 + parseFloat(unit) / Math.pow(10, this.#currentNumberCountDecimal)
         console.log("entra decimal")
         console.log(this.#num1)
 
