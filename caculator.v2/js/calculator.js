@@ -84,42 +84,37 @@ class Calculator{
     }
     */
     modifyNumbers(newValueClick){
-        console.log(newValueClick)
-        
         if (this.#currentNumberDecimal){
             this.addDecimal(newValueClick)
-            console.log("se añadió decimal")
         } else if(newValueClick == '.' && !this.#currentNumberDecimal){ // incorporar error doble . 
             this.#currentNumberDecimal = true
-            console.log("punto click")
         }
         else{
             this.addDigit(newValueClick)
-           // console.log("else")
         }
-
     }
+
     addDigit(unit){
         if (!this.#num1Complete){
             this.#num1 = this.#num1 * 10 + parseFloat(unit)
-            console.log("entra primer if")
         }
         else{
             this.#num2 = this.#num2 * 10 + parseFloat(unit)
-            console.log("segundo if")
         }
     }
     
     addDecimal(unit){
-        console.log(this.#num1,    unit)
+    
         this.#currentNumberCountDecimal += 1
-        this.#num1 = this.#num1 + parseFloat(unit) / Math.pow(10, this.#currentNumberCountDecimal)
-        console.log("entra decimal")
-        console.log(this.#num1)
+        this.#num1 = this.#num1 + parseFloat(unit) / Math.pow(10, this.#currentNumberCountDecimal) 
 
     }
 
-    // operators() --> añadir reset del contador de decimales
+    setOperators(operator){
+        if(this.#validOperators.includes(operator)){
+            this.#operator=operator
+        }
+    }
 
     getCurrentNumber(){
         if (!this.#num1Complete){
@@ -128,7 +123,8 @@ class Calculator{
         }
         else{
             return [this.#num2, this.#currentNumberDecimal]
-        }      
+        }        
+        
     }
  
     plus(){
