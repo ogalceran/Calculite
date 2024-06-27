@@ -1,4 +1,6 @@
-const calculator = new Calculator()
+const calculator = new Calculator();
+const maxLength = 9;
+const display = new Display(maxLength);
 const operatorsButtons = document.getElementsByClassName("operator");
 const numbersButtons = document.getElementsByClassName("number");
 const modifiersButtons = document.getElementsByClassName("modifier");
@@ -12,6 +14,8 @@ let activatedNumericButtons = true;
 let activatedPlusMinusButton = false;
 let activatedDecimalButton = true;
 let activatedEqualButton = false;
+let displayDOMContent = '';
+
 
 addNumericButtonEventListeners();
 addOperatorButtonEventListeners();
@@ -24,7 +28,7 @@ function addNumericButtonEventListeners() {
   for (const numberButton of numbersButtons) {
     numberButton.addEventListener("click", (event) => {
         //add action here
-       addNumeric(event.target.getAttribute("value"))
+        calculator.modifyNumbers(event.target.getAttribute("value"))
         updateDOM();
         
     })
@@ -40,13 +44,14 @@ function addOperatorButtonEventListeners() {
   }
 }
 
-function addNumeric(selectedNumber){
+/*Function addNumeric(selectedNumber){
     console.log(selectedNumber)
 }
-
+*/
 function addDecimalButtonEventListeners() {
   decimalButton.addEventListener("click", () => {
         //add action here
+        calculator.modifyNumbers()
         updateDOM();
   });
 }
@@ -84,10 +89,15 @@ function toggleStateButtonsDOM(state, buttons) {
   }
 }
 
-function modifyDisplayDOM(value) {
-  let myDisplay = document.getElementById("display");
-  myDisplay.textContent = value;
-//  console.log(myDisplay.innerHTML);
+function modifyDisplayDOM() {
+  let displayDOM = document.getElementById("display");
+  let valueArray = calculator.getCurrentNumber()
+  console.log(valueArray[0])
+  let displayValue = valueArray[0]
+  if(valueArray[1]){
+    displayValue+='.'
+  }
+  displayDOM.textContent=displayValue;
 }
 
 function resetCalculatorStatus() {

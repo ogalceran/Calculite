@@ -6,6 +6,7 @@ class Calculator{
     #validOperators
     #ValidOperation
     #num1Complete
+    #num2Complete
     #currentNumberDecimal
     #currentNumberCountDecimal
 
@@ -17,6 +18,7 @@ class Calculator{
         this.#validOperators = ['+', '-', '/', 'x'];
         this.#ValidOperation = false;
         this.#num1Complete = false;
+        this.#num2Complete = false;
         this.#currentNumberDecimal = false;
         this.#currentNumberCountDecimal = 0;
     }
@@ -37,6 +39,7 @@ class Calculator{
         this.#operator='';
         this.#ValidOperation = false;
         this.#num1Complete = false;
+        this.#num2Complete = false;
         this.#currentNumberDecimal = false;
         this.#currentNumberCountDecimal = 0;
     }
@@ -83,45 +86,57 @@ class Calculator{
     modifyNumbers(newValueClick){
         if(newValueClick == '.'){ // incorporar error doble .
             this.#currentNumberDecimal = true
+            //console.log("primer if")
 
         }
-        if (!this.#currentNumberDecimal){
-            addDecimal(newValueClick)
+        if (this.#currentNumberDecimal){
+            this.addDecimal(newValueClick)
+            //console.log("segundo if")
         }
         else{
             this.addDigit(newValueClick)
+           // console.log("else")
         }
 
     }
     addDigit(unit){
         if (!this.#num1Complete){
-            this.#num1 = this.#num1 * 10 + unit
+            this.#num1 = this.#num1 * 10 + parseFloat(unit)
+            console.log("entra primer if")
         }
         else{
-            this.#num2 = this.#num2 * 10 + unit
+            this.#num2 = this.#num2 * 10 + parseFloat(unit)
+            console.log("segundo if")
         }
     }
     
     addDecimal(unit){
         this.#currentNumberCountDecimal += 1
-        this.#num1 = this.#num1 + unit * this.#currentNumberCountDecimal / 10
+        this.#num1 = this.#num1 + parseFloat(unit) * this.#currentNumberCountDecimal / 10
+        console.log("entra decimal")
     }
 
     // operators() --> añadir reset del contador de decimales
+
+    getCurrentNumber(){
+        if (!this.#num1Complete){
+            return [this.#num1, this.#currentNumberDecimal]
+
+        }
+        else{
+            return [this.#num2, this.#currentNumberDecimal]
+        }      
+    }
  
     plus(){
         return (this.#num1) + (this.#num2)
     }
-
     minus(){
         return (this.#num1) - (this.#num2)
     }
-
-
     divide(){
         return (this.#num1) / (this.#num2)
     }
-
     multiply(){
         return (this.#num1) * (this.#num2)    
     }

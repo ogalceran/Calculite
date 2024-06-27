@@ -25,6 +25,7 @@
 #display-container p{
     margin: auto;
     width: 260px;
+    height: 20px;
     padding: 10px;
     border-radius: 20px;
     background-color: white;
@@ -38,6 +39,7 @@
 #display-container{
     padding-bottom: 1em;
     display: flex;
+
 
 }
 /**Buttons general style**/

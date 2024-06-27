@@ -14,5 +14,12 @@ class Display{
         else if (newContent.length > this.#maxLength){
             this.#content = 'ERROR LGT'
         }
+        else{
+            this.#content = newContent
+        }
     }
+    getContent(){
+        return this.#content
+    }
+    
 }
