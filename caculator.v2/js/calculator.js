@@ -84,14 +84,14 @@ class Calculator{
     }
     */
     modifyNumbers(newValueClick){
-        if(newValueClick == '.'){ // incorporar error doble .
-            this.#currentNumberDecimal = true
-            //console.log("primer if")
-
-        }
+        console.log(newValueClick)
+        
         if (this.#currentNumberDecimal){
             this.addDecimal(newValueClick)
-            //console.log("segundo if")
+            console.log("se añadió decimal")
+        } else if(newValueClick == '.' && !this.#currentNumberDecimal){ // incorporar error doble . 
+            this.#currentNumberDecimal = true
+            console.log("punto click")
         }
         else{
             this.addDigit(newValueClick)
@@ -111,9 +111,12 @@ class Calculator{
     }
     
     addDecimal(unit){
+        console.log(this.#num1,    unit)
         this.#currentNumberCountDecimal += 1
         this.#num1 = this.#num1 + parseFloat(unit) * this.#currentNumberCountDecimal / 10
         console.log("entra decimal")
+        console.log(this.#num1)
+
     }
 
     // operators() --> añadir reset del contador de decimales

@@ -15,6 +15,7 @@ let activatedPlusMinusButton = false;
 let activatedDecimalButton = true;
 let activatedEqualButton = false;
 let displayDOMContent = '';
+let commaIsClicked = false;
 
 
 addNumericButtonEventListeners();
@@ -49,9 +50,9 @@ function addOperatorButtonEventListeners() {
 }
 */
 function addDecimalButtonEventListeners() {
-  decimalButton.addEventListener("click", () => {
+  decimalButton.addEventListener("click", (event) => {
         //add action here
-        calculator.modifyNumbers()
+        calculator.modifyNumbers(event.target.getAttribute("value"))
         updateDOM();
   });
 }
@@ -92,10 +93,12 @@ function toggleStateButtonsDOM(state, buttons) {
 function modifyDisplayDOM() {
   let displayDOM = document.getElementById("display");
   let valueArray = calculator.getCurrentNumber()
-  console.log(valueArray[0])
+  console.log(valueArray[0].toString(),valueArray[1])
   let displayValue = valueArray[0]
-  if(valueArray[1]){
+  if(valueArray[1] && !commaIsClicked){
     displayValue+='.'
+    commaIsClicked = true;
+    console.log("entra if")
   }
   displayDOM.textContent=displayValue;
 }
