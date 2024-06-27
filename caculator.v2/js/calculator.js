@@ -128,7 +128,8 @@ class Calculator{
         }
         else{
             return [this.#num2, this.#currentNumberDecimal]
-        }      
+        }        
+        
     }
  
     plus(){
