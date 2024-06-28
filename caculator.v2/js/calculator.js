@@ -9,6 +9,8 @@ class Calculator{
     #num2Complete
     #currentNumberDecimal
     #currentNumberCountDecimal
+    #decimalHasBeenAdded;
+
 
     constructor(){
         this.#result = 0;
@@ -21,7 +23,7 @@ class Calculator{
         this.#num2Complete = false;
         this.#currentNumberDecimal = false;
         this.#currentNumberCountDecimal = 0;
-        this.decimalHasBeenAdded = false;
+        this.#decimalHasBeenAdded = false;
     }
     /*
     setOperation(num1, num2, operator){
@@ -43,25 +45,28 @@ class Calculator{
         this.#num2Complete = false;
         this.#currentNumberDecimal = false;
         this.#currentNumberCountDecimal = 0;
-        this.decimalHasBeenAdded = false;
+        this.#decimalHasBeenAdded = false;
     }
 
     getResult(){
-        switch(this.#operator){
-            case '+': 
-               this.#result = this.plus()
+        if(this.#ValidOperation){
+            switch(this.#operator){
+                case '+': 
+                this.#result = this.plus()
+                    break;
+                case '-':
+                    this.#result = this.minus()
+                    break;
+                case '/':
+                    this.#result = this.divide()
+                    break;
+                case 'x':
+                    this.#result = this.multiply()
                 break;
-            case '-':
-                this.#result = this.minus()
-                break;
-            case '/':
-                this.#result = this.divide()
-                break;
-            case 'x':
-                this.#result = this.multiply()
-               break;
+            }
+            return this.#result
         }
-        return this.#result
+        
     }
     /*
     checkOperation(num1, num2, operator){
@@ -89,15 +94,15 @@ class Calculator{
         
         if (newValueClick != '.') {
             let newValueClicktoFloat = parseFloat(newValueClick)
-            if (this.#currentNumberDecimal && this.decimalHasBeenAdded) {
-                this.decimalHasBeenAdded = true
+            if (this.#currentNumberDecimal && this.#decimalHasBeenAdded) {
+                this.#decimalHasBeenAdded = true
                 this.addDecimal(newValueClicktoFloat)
             } else {
                 this.addDigit(newValueClicktoFloat)
             }
         } 
         else /*if (newValueClick == '.' && !this.#currentNumberDecimal) */{
-            this.decimalHasBeenAdded = true
+            this.#decimalHasBeenAdded = true
             this.#currentNumberDecimal = true
         }
        /*
@@ -151,8 +156,9 @@ class Calculator{
        this.#num1 += unit; */
     } 
     setOperators(operator){
-        if(this.#validOperators.includes(operator)){
+        if(this.#validOperators.includes(operator) && this.#decimalHasBeenAdded){
             this.#operator=operator
+            this.#num1Complete=true
         }
     }
 
@@ -161,7 +167,7 @@ class Calculator{
         if (this.#num1Complete){
            currentNumber = this.#num2
         }
-        if (this.#currentNumberDecimal && !this.decimalHasBeenAdded){
+        if (this.#currentNumberDecimal && !this.#decimalHasBeenAdded){
             currentNumber = currentNumber.toString() + '.'
         }
         return currentNumber       
