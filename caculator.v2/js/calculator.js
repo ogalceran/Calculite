@@ -21,6 +21,7 @@ class Calculator{
         this.#num2Complete = false;
         this.#currentNumberDecimal = false;
         this.#currentNumberCountDecimal = 0;
+        this.decimalHasBeenAdded = false;
     }
     /*
     setOperation(num1, num2, operator){
@@ -42,6 +43,7 @@ class Calculator{
         this.#num2Complete = false;
         this.#currentNumberDecimal = false;
         this.#currentNumberCountDecimal = 0;
+        this.decimalHasBeenAdded = false;
     }
 
     getResult(){
@@ -84,15 +86,33 @@ class Calculator{
     }
     */
     modifyNumbers(newValueClick){
-        if (this.#currentNumberDecimal){
-            this.addDecimal(newValueClick)
-        } else if(newValueClick == '.' && !this.#currentNumberDecimal){ // incorporar error doble . 
+        
+        if (newValueClick != '.') {
+            let newValueClicktoFloat = parseFloat(newValueClick)
+            if (this.#currentNumberDecimal && this.decimalHasBeenAdded) {
+                this.decimalHasBeenAdded = true
+                this.addDecimal(newValueClicktoFloat)
+            } else {
+                this.addDigit(newValueClicktoFloat)
+            }
+        } 
+        else /*if (newValueClick == '.' && !this.#currentNumberDecimal) */{
+            this.decimalHasBeenAdded = true
             this.#currentNumberDecimal = true
         }
-        else{
-            this.addDigit(newValueClick)
+       /*
+        if (newValueClick != '.' && this.#currentNumberDecimal && this.decimalHasBeenAdded){
+            this.decimalHasBeenAdded = true
+            this.addDecimal(newValueClick)
+        } else if(newValueClick == '.' && !this.#currentNumberDecimal){ // incorporar error doble . 
+            this.decimalHasBeenAdded = true
+            this.#currentNumberDecimal = true
         }
+        else if (newValueClick != '.'){
+            this.addDigit(newValueClick)
+        }*/
     }
+
 
     addDigit(unit){
         if (!this.#num1Complete){
@@ -104,21 +124,32 @@ class Calculator{
     }
     
     addDecimal(unit){
-        /*
-        console.log(this.#num1,    unit)
+        // Forma matematica
+        console.log(typeof unit)
         this.#currentNumberCountDecimal += 1
-        this.#num1 = this.#num1 + parseFloat(unit) * this.#currentNumberCountDecimal / 10
-        console.log("entra decimal")
-        console.log(this.#num1)
-        */
+        let exponencial;
+        exponencial = Math.pow(10, this.#currentNumberCountDecimal);
+        let decimal;
+        decimal = unit / exponencial;
+        if (unit != 0){
+            this.#num1 = Math.round((this.#num1 + decimal) * exponencial) / exponencial;
+           
+        }
+        else{
+           console.log(parseFloat(this.#num1 = (this.#num1 + decimal) * exponencial / exponencial))
+            console.log("es 0")
+            console.log(Number.isInteger(this.#num1), this.#num1)
+
+        }
+            /*
+       // Forma concatenada
        if (this.#currentNumberCountDecimal === 0) {
             this.#num1 += '.';
        }
 
        this.#currentNumberCountDecimal += 1;
-       this.#num1 += unit;
-    }
-
+       this.#num1 += unit; */
+    } 
     setOperators(operator){
         if(this.#validOperators.includes(operator)){
             this.#operator=operator
@@ -126,13 +157,14 @@ class Calculator{
     }
 
     getCurrentNumber(){
-        if (!this.#num1Complete){
-            return [this.#num1, this.#currentNumberDecimal]
-
+        let currentNumber = this.#num1
+        if (this.#num1Complete){
+           currentNumber = this.#num2
         }
-        else{
-            return [this.#num2, this.#currentNumberDecimal]
-        }        
+        if (this.#currentNumberDecimal && !this.decimalHasBeenAdded){
+            currentNumber = currentNumber.toString() + '.'
+        }
+        return currentNumber       
         
     }
  
