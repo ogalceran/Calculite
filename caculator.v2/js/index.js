@@ -92,14 +92,12 @@ function toggleStateButtonsDOM(state, buttons) {
 
 function modifyDisplayDOM() {
   let displayDOM = document.getElementById("display");
-  let valueArray = calculator.getCurrentNumber()
-  console.log(valueArray[0].toString(),valueArray[1])
-  let displayValue = valueArray[0]
-  if(valueArray[1] && !commaIsClicked){
+  let displayValue = calculator.getCurrentNumber()
+ /* if(valueArray[1] && !commaIsClicked){
     displayValue+='.'
     commaIsClicked = true;
     console.log("entra if")
-  }
+  }*/
   displayDOM.textContent=displayValue;
 }
 
