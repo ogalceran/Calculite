@@ -111,12 +111,19 @@ class Calculator{
     }
     
     addDecimal(unit){
+        /*
         console.log(this.#num1,    unit)
         this.#currentNumberCountDecimal += 1
         this.#num1 = this.#num1 + parseFloat(unit) * this.#currentNumberCountDecimal / 10
         console.log("entra decimal")
         console.log(this.#num1)
+        */
+       if (this.#currentNumberCountDecimal === 0) {
+            this.#num1 += '.';
+       }
 
+       this.#currentNumberCountDecimal += 1;
+       this.#num1 += unit;
     }
 
     // operators() --> añadir reset del contador de decimales
