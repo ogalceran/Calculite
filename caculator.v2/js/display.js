@@ -1,15 +1,17 @@
 class Display{
     #content
     #maxLength
+    #displayDOM
 
     constructor(maxLength){
         this.#content = ''
         this.#maxLength = maxLength
+        this.#displayDOM = document.getElementById('display')
     }
     
     setContent(newContent){
-        if (newContent == 'ERROR'){
-            this.#content = newContent
+        if (newContent == Infinity || newContent == NaN || newContent == undefined || newContent == null){
+            this.#content = '#ERROR'
         }
         else if (newContent.length > this.#maxLength){
             this.#content = 'ERROR LGT'
@@ -17,9 +19,9 @@ class Display{
         else{
             this.#content = newContent
         }
+       
+        this.#displayDOM.textContent=this.#content
     }
-    getContent(){
-        return this.#content
-    }
+
     
 }

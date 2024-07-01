@@ -1,6 +1,7 @@
 const calculator = new Calculator() 
-const maxLength = 9 
-const display = new Display(maxLength) 
+const MAX_LENGTH_DISPLAY = 9 
+const display = new Display(MAX_LENGTH_DISPLAY) 
+
 const operatorsButtons = document.getElementsByClassName("operator") 
 const numbersButtons = document.getElementsByClassName("number") 
 const modifiersButtons = document.getElementsByClassName("modifier") 
@@ -101,15 +102,9 @@ function toggleStateButtonsDOM(state, buttons) {
 }
 
 function modifyDisplayDOM() {
-  let displayDOM = document.getElementById("display") 
-  let displayValue = calculator.getCurrentNumber()
-  console.log("modifico DOM")
- /* if(valueArray[1] && !commaIsClicked){
-    displayValue+='.'
-    commaIsClicked = true 
-    console.log("entra if")
-  }*/
-  displayDOM.textContent=displayValue 
+  display.setContent(calculator.getCurrentNumber())
+
+  console.log(calculator.getCurrentNumber())
 }
 
 function resetCalculatorStatus() {
