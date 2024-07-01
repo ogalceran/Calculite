@@ -9,27 +9,28 @@ const equalButton = document.getElementById("equal")
 const plusminusButton = document.getElementById("plusminus") 
 
 let intializedCalculator = true 
-let activatedOperatorsButtons = false 
+let activatedOperatorsButtons = true //false 
 let activatedNumericButtons = true 
-let activatedPlusMinusButton = false 
+let activatedPlusMinusButton = true //false 
 let activatedDecimalButton = true 
-let activatedEqualButton = false 
+let activatedEqualButton = true //false 
 let displayDOMContent = '' 
-let commaIsClicked = false 
-
+let commaIsClicked = true //false 
 
 addNumericButtonEventListeners() 
 addOperatorButtonEventListeners() 
 addDecimalButtonEventListeners() 
 addDeleteButtonEventListeners() 
-addEqualButtonEventListeners() 
-resetCalculatorStatus() 
+addEqualButtonEventListeners()
+addPlusMinusEventListeners()
+//resetCalculatorStatus() 
 
 function addNumericButtonEventListeners() {
   for (const numberButton of numbersButtons) {
     numberButton.addEventListener("click", (event) => {
-        //add action here
-        calculator.modifyNumbers(event.target.getAttribute("value"))
+        calculator.addValueToCurrentNumber(event.target.getAttribute("value"))
+        //activatedDecimalButton=true
+        //activatedOperatorsButtons=true
         updateDOM() 
         
     })
@@ -38,21 +39,21 @@ function addNumericButtonEventListeners() {
 
 function addOperatorButtonEventListeners() {
   for (const operatorButton of operatorsButtons) {
-    operatorButton.addEventListener("click", () => {
-    //add action here
+    operatorButton.addEventListener("click", (event) => {
+      calculator.setOperator(event.target.getAttribute("value"))
       updateDOM() 
     }) 
   }
 }
-
 /*Function addNumeric(selectedNumber){
     console.log(selectedNumber)
 }
 */
 function addDecimalButtonEventListeners() {
   decimalButton.addEventListener("click", (event) => {
-        //add action here
-        calculator.modifyNumbers(event.target.getAttribute("value"))
+        calculator.addValueToCurrentNumber(event.target.getAttribute("value"))
+        //activatedDecimalButton=false
+        //activatedOperatorsButtons=false
         updateDOM() 
   }) 
 }
@@ -64,9 +65,17 @@ function addDeleteButtonEventListeners() {
 
 function addEqualButtonEventListeners() {
   equalButton.addEventListener("click", () => {
-        //add action here
+        calculator.getResult()
         updateDOM() 
   }) 
+}
+
+function addPlusMinusEventListeners(){
+  plusminusButton.addEventListener("click", () => {
+    calculator.setPlusMinus()
+    console.log("plusminus")
+    updateDOM() 
+}) 
 }
 
 function updateDOM() {
@@ -77,6 +86,7 @@ function updateDOM() {
   toggleStateButtonsDOM(activatedPlusMinusButton, [plusminusButton]) 
   modifyDisplayDOM() 
 }
+
 function toggleStateButtonsDOM(state, buttons) {
   for (var i = 0; i < buttons.length; i++) {
     if (state) {
