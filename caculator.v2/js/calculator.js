@@ -7,21 +7,24 @@ class Calculator{
     #ValidOperation
     #num1Complete
     #num2Complete
-    #currentNumberDecimal
+    #currentNumberHasComma
     #currentNumberCountDecimal
+    #zeroCountDecimal
+    #decimalHasBeenAdded 
 
     constructor(){
-        this.#result = 0;
-        this.#num1 = 0;
-        this.#num2 = 0;
-        this.#operator = '';
-        this.#validOperators = ['+', '-', '/', 'x'];
-        this.#ValidOperation = false;
-        this.#num1Complete = false;
-        this.#num2Complete = false;
-        this.#currentNumberDecimal = false;
-        this.#currentNumberCountDecimal = 0;
-        this.decimalHasBeenAdded = false;
+        this.#result = 0 
+        this.#num1 = 0 
+        this.#num2 = 0 
+        this.#operator = '' 
+        this.#validOperators = ['+', '-', '/', 'x'] 
+        this.#ValidOperation = false 
+        this.#num1Complete = false 
+        this.#num2Complete = false 
+        this.#currentNumberHasComma = false 
+        this.#currentNumberCountDecimal = 0 
+        this.#decimalHasBeenAdded = false 
+        this.#zeroCountDecimal = 0 
     }
     /*
     setOperation(num1, num2, operator){
@@ -34,32 +37,33 @@ class Calculator{
     }
     */
     resetCalculator(){
-        this.#result=0;
-        this.#num1=0;
-        this.#num2=0;
-        this.#operator='';
-        this.#ValidOperation = false;
-        this.#num1Complete = false;
-        this.#num2Complete = false;
-        this.#currentNumberDecimal = false;
-        this.#currentNumberCountDecimal = 0;
-        this.decimalHasBeenAdded = false;
+        this.#result=0 
+        this.#num1=0 
+        this.#num2=0 
+        this.#operator='' 
+        this.#ValidOperation = false 
+        this.#num1Complete = false 
+        this.#num2Complete = false 
+        this.#currentNumberHasComma = false 
+        this.#currentNumberCountDecimal = 0 
+        this.#decimalHasBeenAdded = false 
+        this.#zeroCountDecimal = 0 
     }
 
     getResult(){
         switch(this.#operator){
             case '+': 
                this.#result = this.plus()
-                break;
+                break 
             case '-':
                 this.#result = this.minus()
-                break;
+                break 
             case '/':
                 this.#result = this.divide()
-                break;
+                break 
             case 'x':
                 this.#result = this.multiply()
-               break;
+               break 
         }
         return this.#result
     }
@@ -89,28 +93,19 @@ class Calculator{
         
         if (newValueClick != '.') {
             let newValueClicktoFloat = parseFloat(newValueClick)
-            if (this.#currentNumberDecimal && this.decimalHasBeenAdded) {
-                this.decimalHasBeenAdded = true
+            if (this.#currentNumberHasComma && this.#decimalHasBeenAdded) {
+                console.log("entra en addDecimal if")
                 this.addDecimal(newValueClicktoFloat)
             } else {
                 this.addDigit(newValueClicktoFloat)
             }
         } 
-        else /*if (newValueClick == '.' && !this.#currentNumberDecimal) */{
-            this.decimalHasBeenAdded = true
-            this.#currentNumberDecimal = true
+        else /*if (newValueClick == '.' && !this.#currentNumberHasComma) */{
+            this.#decimalHasBeenAdded = true
+            this.#currentNumberHasComma = true
+            //console.log("pasa a true")
         }
-       /*
-        if (newValueClick != '.' && this.#currentNumberDecimal && this.decimalHasBeenAdded){
-            this.decimalHasBeenAdded = true
-            this.addDecimal(newValueClick)
-        } else if(newValueClick == '.' && !this.#currentNumberDecimal){ // incorporar error doble . 
-            this.decimalHasBeenAdded = true
-            this.#currentNumberDecimal = true
-        }
-        else if (newValueClick != '.'){
-            this.addDigit(newValueClick)
-        }*/
+       
     }
 
 
@@ -127,28 +122,27 @@ class Calculator{
         // Forma matematica
         console.log(typeof unit)
         this.#currentNumberCountDecimal += 1
-        let exponencial;
-        exponencial = Math.pow(10, this.#currentNumberCountDecimal);
-        let decimal;
-        decimal = unit / exponencial;
-        if (unit != 0){
-            this.#num1 = Math.round((this.#num1 + decimal) * exponencial) / exponencial;
-           
+        let exponencial 
+        exponencial = Math.pow(10, this.#currentNumberCountDecimal) 
+        let decimal 
+        decimal = unit / exponencial 
+        this.#num1 = Math.round((this.#num1 + decimal) * exponencial) / exponencial 
+
+        if (unit == 0){
+           this.#zeroCountDecimal ++
         }
         else{
-           console.log(parseFloat(this.#num1 = (this.#num1 + decimal) * exponencial / exponencial))
-            console.log("es 0")
-            console.log(Number.isInteger(this.#num1), this.#num1)
-
+            this.#zeroCountDecimal = 0
         }
+       
             /*
        // Forma concatenada
        if (this.#currentNumberCountDecimal === 0) {
-            this.#num1 += '.';
+            this.#num1 += '.' 
        }
 
-       this.#currentNumberCountDecimal += 1;
-       this.#num1 += unit; */
+       this.#currentNumberCountDecimal += 1 
+       this.#num1 += unit  */
     } 
     setOperators(operator){
         if(this.#validOperators.includes(operator)){
@@ -157,12 +151,20 @@ class Calculator{
     }
 
     getCurrentNumber(){
-        let currentNumber = this.#num1
+        let currentNumber = this.#num1.toString()
         if (this.#num1Complete){
-           currentNumber = this.#num2
+           currentNumber = this.#num2.toString()
         }
-        if (this.#currentNumberDecimal && !this.decimalHasBeenAdded){
-            currentNumber = currentNumber.toString() + '.'
+        if (this.#currentNumberHasComma && this.#decimalHasBeenAdded /*&& !currentNumber.includes(".")*/){
+            currentNumber += '.'
+            console.log("pongo punto")
+        }
+        if(this.#zeroCountDecimal > 0){
+          for (let i = 0; i < this.#zeroCountDecimal; i++) {
+            currentNumber += '0'
+            console.log("pongo 0")
+            
+          }
         }
         return currentNumber       
         
