@@ -93,17 +93,15 @@ class Calculator{
         
         if (newValueClick != '.') {
             let newValueClicktoFloat = parseFloat(newValueClick)
-            if (this.#currentNumberHasComma && this.#decimalHasBeenAdded) {
-                console.log("entra en addDecimal if")
+            if (this.#currentNumberHasComma) {
                 this.addDecimal(newValueClicktoFloat)
+                this.#decimalHasBeenAdded = true
             } else {
                 this.addDigit(newValueClicktoFloat)
             }
         } 
-        else /*if (newValueClick == '.' && !this.#currentNumberHasComma) */{
-            this.#decimalHasBeenAdded = true
+        else {
             this.#currentNumberHasComma = true
-            //console.log("pasa a true")
         }
        
     }
@@ -155,15 +153,12 @@ class Calculator{
         if (this.#num1Complete){
            currentNumber = this.#num2.toString()
         }
-        if (this.#currentNumberHasComma && this.#decimalHasBeenAdded /*&& !currentNumber.includes(".")*/){
+        if (this.#currentNumberHasComma && !this.#decimalHasBeenAdded /*&& !currentNumber.includes(".")*/){
             currentNumber += '.'
-            console.log("pongo punto")
         }
         if(this.#zeroCountDecimal > 0){
           for (let i = 0; i < this.#zeroCountDecimal; i++) {
             currentNumber += '0'
-            console.log("pongo 0")
-            
           }
         }
         return currentNumber       
