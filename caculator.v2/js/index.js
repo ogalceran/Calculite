@@ -1,3 +1,10 @@
+/*TODO: comunicar estado calculadora DOM con  el estado de Calculadora. 
+Añadir estados en Calculadora
+Reorganizar el codigo por documentos
+Revisar nombres variables y funciones
+Intentar pasar por parametros mas globales(??)
+*/
+
 const calculator = new Calculator() 
 const MAX_LENGTH_DISPLAY = 9 
 const display = new Display(MAX_LENGTH_DISPLAY) 
@@ -46,10 +53,7 @@ function addOperatorButtonEventListeners() {
     }) 
   }
 }
-/*Function addNumeric(selectedNumber){
-    console.log(selectedNumber)
-}
-*/
+
 function addDecimalButtonEventListeners() {
   decimalButton.addEventListener("click", (event) => {
         calculator.addValueToCurrentNumber(event.target.getAttribute("value"))
@@ -103,7 +107,6 @@ function toggleStateButtonsDOM(state, buttons) {
 
 function modifyDisplayDOM() {
   display.setContent(calculator.getCurrentNumber())
-
   console.log(calculator.getCurrentNumber())
 }
 

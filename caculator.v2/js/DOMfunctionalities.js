@@ -28,10 +28,7 @@ function addOperatorButtonEventListeners() {
         })
     }
 }
-/*Function addNumeric(selectedNumber){
-    console.log(selectedNumber)
-}
-*/
+
 function addDecimalButtonEventListeners() {
     decimalButton.addEventListener("click", (event) => {
         calculator.addValueToCurrentNumber(event.target.getAttribute("value"))
