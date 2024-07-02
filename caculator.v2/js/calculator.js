@@ -69,7 +69,6 @@ class Calculator {
       const newValueClicktoFloat = parseFloat(newValueClick)
       if (this.#currentNumberHasComma) {
         this.addDecimalToCurrentNumber(newValueClicktoFloat)
-        this.#decimalHasBeenAdded = true
       } else {
         this.addDigitToCurrentNumber(newValueClicktoFloat)
       }
@@ -103,6 +102,7 @@ class Calculator {
       this.#zeroCountDecimal++
     } else {
       this.#zeroCountDecimal = 0
+      this.#decimalHasBeenAdded = true
     }
   }
 
