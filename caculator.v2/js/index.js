@@ -25,13 +25,21 @@ let activatedEqualButton = true //false
 let displayDOMContent = '' 
 let commaIsClicked = true //false 
 
-addNumericButtonEventListeners() 
-addOperatorButtonEventListeners() 
-addDecimalButtonEventListeners() 
-addDeleteButtonEventListeners() 
-addEqualButtonEventListeners()
-addPlusMinusEventListeners()
-//resetCalculatorStatus() 
+intializeCalculator()
+
+function intializeCalculator(){
+  addEventListeners()
+ // resetCalculatorStatus()
+}
+
+function addEventListeners(){
+  addNumericButtonEventListeners() 
+  addOperatorButtonEventListeners() 
+  addDecimalButtonEventListeners() 
+  addClearButtonEventListeners() 
+  addEqualButtonEventListeners()
+  addPlusMinusEventListeners()
+}
 
 function addNumericButtonEventListeners() {
   for (const numberButton of numbersButtons) {
@@ -40,7 +48,6 @@ function addNumericButtonEventListeners() {
         //activatedDecimalButton=true
         //activatedOperatorsButtons=true
         updateDOM() 
-        
     })
   }
 }
@@ -57,13 +64,13 @@ function addOperatorButtonEventListeners() {
 function addDecimalButtonEventListeners() {
   decimalButton.addEventListener("click", (event) => {
         calculator.addValueToCurrentNumber(event.target.getAttribute("value"))
-        //activatedDecimalButton=false
-        //activatedOperatorsButtons=false
+        activatedDecimalButton=false
+        activatedOperatorsButtons=false
         updateDOM() 
   }) 
 }
 
-function addDeleteButtonEventListeners() {
+function addClearButtonEventListeners() {
   let deleteButton = document.getElementById("AC") 
   deleteButton.addEventListener("click", resetCalculatorStatus) 
 }
@@ -112,11 +119,11 @@ function modifyDisplayDOM() {
 
 function resetCalculatorStatus() {
   intializedCalculator = true 
-  activatedOperatorsButtons = false 
+  //activatedOperatorsButtons = false 
   activatedNumericButtons = true 
-  activatedPlusMinusButton = false 
+  //activatedPlusMinusButton = false 
   activatedDecimalButton = true 
-  activatedEqualButton = false 
+  //activatedEqualButton = false 
   calculator.resetCalculator() 
   updateDOM() 
 }
