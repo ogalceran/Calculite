@@ -10,6 +10,7 @@ class Display {
   }
 
   setContent (newContent) {
+    newContent = newContent.toString()
     if (newContent === Infinity || newContent === isNaN || newContent === undefined || newContent == null) {
       this.#content = '#ERROR'
     } else if (newContent.length > this.#maxLength) {
