@@ -18,11 +18,11 @@ let equalButton = document.getElementById('equal')
 let plusminusButton = document.getElementById('plusminus')
 
 // ACTIVATED - NON ACTIVATED STATUS
-let activatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to make the calculator functional for now.
+let activatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
 let activatedNumericButtons = true
-let activatedPlusMinusButton = true // At the beggining it should be off (false), overwrited to make the calculator functional for now.
+let activatedPlusMinusButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
 let activatedDecimalButton = true
-let activatedEqualButton = true // At the beggining it should be off (false), overwrited to make the calculator functional for now.
+let activatedEqualButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
 
 intializeCalculator()
 
@@ -110,11 +110,11 @@ function modifyDisplayDOM () {
 }
 
 function resetCalculatorStatus () {
-  activatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to make the calculator functional for now.
+  activatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
   activatedNumericButtons = true
-  activatedPlusMinusButton = true // At the beggining it should be off (false), overwrited to make the calculator functional for now.
+  activatedPlusMinusButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
   activatedDecimalButton = true
-  activatedEqualButton = true // At the beggining it should be off (false), overwrited to make the calculator functional for now.
+  activatedEqualButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
   CALCULATOR.resetCalculator()
   updateDOM()
 }
