@@ -11,6 +11,7 @@ class Calculator {
   #zeroCountDecimal
   #decimalHasBeenAdded
   #counterAddedDigitsToNum
+  #calculatorStatus
 
   constructor () {
     this.#result = 0
@@ -25,20 +26,17 @@ class Calculator {
     this.#decimalHasBeenAdded = false
     this.#zeroCountDecimal = 0
     this.#counterAddedDigitsToNum = 0
+    this.#calculatorStatus = new Map([
+        ['activatedOperators', false],
+        ['activatedNumeric', true],
+        ['activatedPlusMinus', true],
+        ['activatedDecimal', true],
+        ['activatedEqual', false],
+    ])
   }
 
-  resetCalculator () {
-    this.#result = 0
-    this.#num1 = 0
-    this.#num2 = 0
-    this.#operator = ''
-    this.#num1Complete = false
-    this.#num2Complete = false
-    this.#currentNumberHasComma = false
-    this.#currentNumberCountDecimals = 0
-    this.#decimalHasBeenAdded = false
-    this.#zeroCountDecimal = 0
-    this.#counterAddedDigitsToNum = 0
+  getCalculatorStatus () {
+    return this.#calculatorStatus
   }
 
   getResult () {
@@ -72,8 +70,12 @@ class Calculator {
       } else {
         this.addDigitToCurrentNumber(newValueClicktoFloat)
       }
+      this.#calculatorStatus.set('activatedOperators', true)
+      
     } else {
       this.#currentNumberHasComma = true
+      this.#calculatorStatus.set('activatedOperators', false)
+      this.#calculatorStatus.set('activatedDecimal', false)
     }
   }
 
@@ -104,17 +106,19 @@ class Calculator {
       this.#zeroCountDecimal = 0
       this.#decimalHasBeenAdded = true
     }
+    this.#calculatorStatus.set('activatedDecimal', false)
   }
 
   setOperator (operator) {
     if (this.#acceptedOperators.includes(operator) && this.checkCurrentNumberOK()) {
       this.resetNumberStatus()
       this.#operator = operator
+      this.#num1Complete = true
     }
   }
 
   resetNumberStatus () {
-    this.#num1Complete = true
+    this.#calculatorStatus.set('activatedDecimal', true)
     this.#currentNumberCountDecimals = 0
     this.#decimalHasBeenAdded = false
     this.#currentNumberHasComma = false
@@ -172,4 +176,25 @@ class Calculator {
   multiply () {
     return (this.#num1) * (this.#num2)
   }
+
+  resetCalculator () {
+    this.#result = 0
+    this.#num1 = 0
+    this.#num2 = 0
+    this.#operator = ''
+    this.#num1Complete = false
+    this.#num2Complete = false
+    this.#currentNumberHasComma = false
+    this.#currentNumberCountDecimals = 0
+    this.#decimalHasBeenAdded = false
+    this.#zeroCountDecimal = 0
+    this.#counterAddedDigitsToNum = 0
+    this.#calculatorStatus = new Map([
+        ['activatedOperators', false],
+        ['activatedNumeric', true],
+        ['activatedPlusMinus', true],
+        ['activatedDecimal', true],
+        ['activatedEqual', false],
+    ])  
+    }
 }

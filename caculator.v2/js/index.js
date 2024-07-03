@@ -23,6 +23,7 @@ let activatedNumericButtons = true
 let activatedPlusMinusButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
 let activatedDecimalButton = true
 let activatedEqualButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
+let calculatorStatus = CALCULATOR.getCalculatorStatus()
 
 intializeCalculator()
 
@@ -85,9 +86,10 @@ function addPlusMinusEventListeners () {
 }
 
 function updateDOM () {
-  toggleStateButtonsDOM(activatedOperatorsButtons, operatorsButtons)
+  //toggleStateButtonsDOM(activatedOperatorsButtons, operatorsButtons)
+  toggleStateButtonsDOM(calculatorStatus.get('activatedOperators'), operatorsButtons)
   toggleStateButtonsDOM(activatedNumericButtons, numbersButtons)
-  toggleStateButtonsDOM(activatedDecimalButton, [decimalButton])
+  toggleStateButtonsDOM(calculatorStatus.get('activatedDecimal'), [decimalButton])
   toggleStateButtonsDOM(activatedEqualButton, [equalButton])
   toggleStateButtonsDOM(activatedPlusMinusButton, [plusminusButton])
   modifyDisplayDOM()
@@ -110,11 +112,11 @@ function modifyDisplayDOM () {
 }
 
 function resetCalculatorStatus () {
-  activatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
+  /*ctivatedOperatorsButtons = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
   activatedNumericButtons = true
   activatedPlusMinusButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
   activatedDecimalButton = true
-  activatedEqualButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.
+  activatedEqualButton = true // At the beggining it should be off (false), overwrited to true to make the calculator functional for now.*/
   CALCULATOR.resetCalculator()
   updateDOM()
 }
