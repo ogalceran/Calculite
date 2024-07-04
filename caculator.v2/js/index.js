@@ -113,8 +113,19 @@ function toggleStateButtonsDOM(state, buttons) {
 }
 
 function modifyDisplayDOM() {
+<<<<<<< HEAD
   display.setContent(calculator.getCurrentNumber())
   console.log(calculator.getCurrentNumber())
+=======
+  let displayDOM = document.getElementById("display");
+  let displayValue = calculator.getCurrentNumber()
+ /* if(valueArray[1] && !commaIsClicked){
+    displayValue+='.'
+    commaIsClicked = true;
+    console.log("entra if")
+  }*/
+  displayDOM.textContent=displayValue;
+>>>>>>> dev-anna
 }
 
 function resetCalculatorStatus() {
